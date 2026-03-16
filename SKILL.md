@@ -12,7 +12,7 @@ A meta-skill for private-first distribution of agentics (skills, agents, and pro
 
 > Update these after forking and cloning the library repo.
 
-- **LIBRARY_REPO_URL**: `<your forked repo url>`
+- **LIBRARY_REPO_URL**: `https://github.com/masserfx/the-library.git`
 - **LIBRARY_YAML_PATH**: `~/.claude/skills/library/library.yaml`
 - **LIBRARY_SKILL_DIR**: `~/.claude/skills/library/`
 
