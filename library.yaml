@@ -10,6 +10,100 @@ default_dirs:
     - global: ~/.claude/commands/
 
 library:
-  skills: []
+  skills:
+    # === External skills (8) ===
+    - name: async-python-patterns
+      description: Async Python patterns for concurrent programming
+      source: https://github.com/wshobson/agents/blob/main/plugins/python-development/skills/async-python-patterns/SKILL.md
+
+    - name: next-best-practices
+      description: Next.js best practices and patterns
+      source: https://github.com/vercel-labs/next-skills/blob/main/skills/next-best-practices/SKILL.md
+
+    - name: python-testing-patterns
+      description: Python testing patterns and best practices
+      source: https://github.com/wshobson/agents/blob/main/plugins/python-development/skills/python-testing-patterns/SKILL.md
+
+    - name: shadcn-ui
+      description: shadcn/ui component library patterns
+      source: https://github.com/jezweb/claude-skills/blob/main/plugins/frontend/skills/shadcn-ui/SKILL.md
+
+    - name: tailwind-theme-builder
+      description: Tailwind CSS theme building patterns
+      source: https://github.com/jezweb/claude-skills/blob/main/plugins/frontend/skills/tailwind-theme-builder/SKILL.md
+
+    - name: test-driven-development
+      description: TDD methodology and workflow
+      source: https://github.com/obra/superpowers/blob/main/skills/test-driven-development/SKILL.md
+
+    - name: vercel-composition-patterns
+      description: Vercel agent composition patterns
+      source: https://github.com/vercel-labs/agent-skills/blob/main/skills/composition-patterns/SKILL.md
+
+    - name: vitest
+      description: Vitest testing framework patterns
+      source: https://github.com/antfu/skills/blob/main/skills/vitest/SKILL.md
+
+    # === Private skills (15) ===
+    - name: bistro-promo
+      description: Promo materialy pro Bistro Krasovska
+      source: https://github.com/masserfx/claude-skills/blob/main/bistro-promo/SKILL.md
+
+    - name: box-installer
+      description: Pruvodce instalaci SentiVoice u zakaznika
+      source: https://github.com/masserfx/claude-skills/blob/main/box-installer/SKILL.md
+
+    - name: browser-mcp
+      description: Browser MCP debugging and e-shop automation
+      source: https://github.com/masserfx/claude-skills/blob/main/browser-mcp/SKILL.md
+
+    - name: code-simplifier
+      description: Simplify and refine recently modified code
+      source: https://github.com/masserfx/claude-skills/blob/main/code-simplifier/SKILL.md
+
+    - name: customer-onboarding-wizard
+      description: Post-install pruvodce onboardingem zakaznika
+      source: https://github.com/masserfx/claude-skills/blob/main/customer-onboarding-wizard/SKILL.md
+
+    - name: domain-generator
+      description: Generator nove NLP domeny pro Voice Analyzer
+      source: https://github.com/masserfx/claude-skills/blob/main/domain-generator/SKILL.md
+
+    - name: frontend-design
+      description: Creative frontend design guidelines
+      source: https://github.com/masserfx/claude-skills/blob/main/frontend-design/SKILL.md
+
+    - name: infra-provisioner
+      description: Automatizace vytvoreni serveru pro SentiVoice
+      source: https://github.com/masserfx/claude-skills/blob/main/infra-provisioner/SKILL.md
+
+    - name: mkt-post
+      description: Generator MKT postu pro FB/IG
+      source: https://github.com/masserfx/claude-skills/blob/main/mkt-post/SKILL.md
+
+    - name: react-doctor
+      description: React code health checker
+      source: https://github.com/masserfx/claude-skills/blob/main/react-doctor/SKILL.md
+
+    - name: release-packager
+      description: Automatizace tvorby release a verzovani
+      source: https://github.com/masserfx/claude-skills/blob/main/release-packager/SKILL.md
+
+    - name: reporting
+      description: Reporting.cz Analytics Platform skills
+      source: https://github.com/masserfx/claude-skills/blob/main/reporting/SKILL.md
+
+    - name: security-hardening
+      description: Pre-deploy security audit
+      source: https://github.com/masserfx/claude-skills/blob/main/security-hardening/SKILL.md
+
+    - name: seo-audit
+      description: SEO audit webu halakrasovska.cz
+      source: https://github.com/masserfx/claude-skills/blob/main/seo-audit/SKILL.md
+
+    - name: session-discipline
+      description: Pravidla pro inkrementalni praci
+      source: https://github.com/masserfx/claude-skills/blob/main/session-discipline/SKILL.md
+
   agents: []
   prompts: []
