@@ -205,16 +205,20 @@ Pull the latest version of all installed items:
 
 ## Commands
 
-| Command                     | What It Does                                               |
-| --------------------------- | ---------------------------------------------------------- |
-| `/library install`          | First-time setup — fork, clone, configure                  |
-| `/library add <details>`    | Register a new entry in the catalog                        |
-| `/library use <name>`       | Pull from source into local directory (install or refresh) |
-| `/library push <name>`      | Push local changes back to the source                      |
-| `/library remove <name>`    | Remove from catalog and optionally delete local copy       |
-| `/library list`             | Show full catalog with install status                      |
-| `/library sync`             | Re-pull all installed items from source                    |
-| `/library search <keyword>` | Find entries by name or description                        |
+| Command                      | What It Does                                               |
+| ---------------------------- | ---------------------------------------------------------- |
+| `/library install`           | First-time setup — fork, clone, configure                  |
+| `/library add <details>`     | Register a new entry in the catalog                        |
+| `/library use <name>`        | Pull from source into local directory (install or refresh) |
+| `/library push <name>`       | Push local changes back to the source                      |
+| `/library remove <name>`     | Remove from catalog and optionally delete local copy       |
+| `/library list`              | Show full catalog with install status                      |
+| `/library sync`              | Re-pull all installed items from source                    |
+| `/library search <keyword>`  | Find entries by name or description                        |
+| `/library mimoni run <task>` | Start a new mimoni orchestration run                       |
+| `/library mimoni init`       | Initialize mimoni.yaml in current project                  |
+| `/library mimoni status`     | Check status of running mimoni(s)                          |
+| `/library mimoni list`       | List available blueprints                                  |
 
 ### Justfile Shortcuts
 
@@ -246,6 +250,17 @@ just search "keyword"
         list.md
         sync.md
         search.md
+        mimoni-run.md         # Mimoni orchestration run
+        mimoni-init.md        # Mimoni project initialization
+        mimoni-status.md      # Mimoni run status checking
+        mimoni-list.md        # Mimoni blueprint listing
+        mimoni-state.md       # Mimoni state management reference
+    blueprints/               # Mimoni workflow templates
+        standard.md           # General code changes
+        bugfix.md             # Bug fix workflow
+        migration.md          # Code migration workflow
+        test.md               # Test writing workflow
+    mimoni.example.yaml       # Mimoni configuration template
     justfile                  # CLI shorthand for all commands
     README.md                 # This file
 ```
@@ -269,6 +284,97 @@ just search "keyword"
 | **Prompts**     | Orchestration — coordinate skills and agents   |
 | **Justfile**    | Terminal access without an interactive session |
 | **The Library** | Distribution across devices, teams, and agents |
+
+## Mimoni
+
+**Mimoni** is an agent orchestration system inspired by [Stripe's Minions](https://www.infoq.com/news/2025/04/stripe-agent-minions/) — one-shot, unattended coding agent runs. Task description in → pull request out, no human interaction in between.
+
+Following The Library's pure-agent philosophy, the entire orchestration logic is encoded in markdown blueprints, cookbook instructions, and YAML configuration. No scripts, no CLIs, no dependencies. The agent IS the runtime.
+
+### Blueprints
+
+Blueprints are markdown-defined workflows that mix **deterministic nodes** (git operations, lint, test — exact shell commands) with **agent nodes** (planning, implementation, fixing — LLM-driven). This is the core architectural pattern from Stripe's Minions.
+
+Every blueprint follows the canonical Stripe pattern: context gathering → planning → branch creation → TDD implementation → local validation → fix loop (max 2 retries) → commit & push → PR creation.
+
+| Blueprint    | File                      | Use Case                                                          |
+| ------------ | ------------------------- | ----------------------------------------------------------------- |
+| **standard** | `blueprints/standard.md`  | General code changes — features, improvements, refactoring        |
+| **bugfix**   | `blueprints/bugfix.md`    | Bug fixes — reproduce → diagnose → fix → verify                  |
+| **migration**| `blueprints/migration.md` | Code migrations — analyze → plan → migrate → validate            |
+| **test**     | `blueprints/test.md`      | Test writing — analyze coverage → write tests → verify            |
+
+### Mimoni Commands
+
+| Command                      | What It Does                              |
+| ---------------------------- | ----------------------------------------- |
+| `/library mimoni run <task>` | Start a new mimoni orchestration run      |
+| `/library mimoni init`       | Initialize mimoni.yaml in current project |
+| `/library mimoni status`     | Check status of running mimoni(s)         |
+| `/library mimoni list`       | List available blueprints                 |
+
+### Justfile Shortcuts for Mimoni
+
+```bash
+just mimoni "add user authentication"   # Run a single mimoni task
+just mimoni-batch "task1" "task2"        # Run multiple tasks in parallel
+just mimoni-status                       # Check status of all runs
+just mimoni-init                         # Initialize mimoni.yaml in current project
+```
+
+### Quick Start
+
+**1. Initialize mimoni in your project:**
+
+```bash
+just mimoni-init
+```
+
+This creates a `mimoni.yaml` configuration file with auto-detected defaults for your project (e.g., npm commands for Node.js projects, cargo for Rust, pytest for Python).
+
+**2. Edit the config:**
+
+Open `mimoni.yaml` and adjust validation commands, PR settings, and context rules for your project:
+
+```yaml
+blueprint: standard
+validation:
+  lint: npm run lint
+  typecheck: npm run typecheck
+  test: npm test
+pr:
+  branch_prefix: "mimoni/"
+  max_retries: 2
+  draft: true
+```
+
+**3. Run a mimoni task:**
+
+```bash
+just mimoni "add a /health endpoint that returns JSON status"
+```
+
+Mimoni reads your config, selects the blueprint, creates a branch, implements the task, runs validation with fix loops, and opens a PR — all unattended.
+
+**4. Check status:**
+
+```bash
+just mimoni-status
+```
+
+View progress and results of running or completed mimoni runs.
+
+### mimoni.yaml Configuration
+
+The `mimoni.yaml` file configures how mimoni operates in your project. See `mimoni.example.yaml` for the full template.
+
+| Section        | Purpose                                                           |
+| -------------- | ----------------------------------------------------------------- |
+| `blueprint`    | Which workflow to use (`standard`, `bugfix`, `migration`, `test`) |
+| `validation`   | Shell commands for lint, typecheck, and test                      |
+| `pr`           | Branch prefix, max retries, draft mode, labels, reviewers         |
+| `agent`        | Model selection and rule files to include as context              |
+| `context`      | Include/exclude glob patterns for project files                   |
 
 ## Master Agentic Coding
 > Prepare for the future of software engineering

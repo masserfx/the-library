@@ -12,7 +12,7 @@ A meta-skill for private-first distribution of agentics (skills, agents, and pro
 
 > Update these after forking and cloning the library repo.
 
-- **LIBRARY_REPO_URL**: `https://github.com/masserfx/the-library.git`
+- **LIBRARY_REPO_URL**: `<your forked repo url>`
 - **LIBRARY_YAML_PATH**: `~/.claude/skills/library/library.yaml`
 - **LIBRARY_SKILL_DIR**: `~/.claude/skills/library/`
 
@@ -34,6 +34,10 @@ The Library is a catalog of references to your agentics. The `library.yaml` file
 | `/library list`             | Show full catalog with install status    |
 | `/library sync`             | Re-pull all installed items from source   |
 | `/library search <keyword>` | Find entries by keyword                  |
+| `/library mimoni run <task>` | Start a new mimoni orchestration run     |
+| `/library mimoni init`       | Initialize mimoni.yaml in current project |
+| `/library mimoni status`     | Check status of running mimoni(s)        |
+| `/library mimoni list`       | List available blueprints                |
 
 ## Cookbook
 
@@ -49,8 +53,14 @@ Each command has a detailed step-by-step guide. **Read the relevant cookbook fil
 | list    | [cookbook/list.md](cookbook/list.md)       | User wants to see what's available and what's installed      |
 | sync    | [cookbook/sync.md](cookbook/sync.md)       | User wants to refresh all installed items at once            |
 | search  | [cookbook/search.md](cookbook/search.md)   | User is looking for a skill but doesn't know the exact name |
+| mimoni run    | [cookbook/mimoni-run.md](cookbook/mimoni-run.md)       | User wants to start a new unattended mimoni orchestration run       |
+| mimoni init   | [cookbook/mimoni-init.md](cookbook/mimoni-init.md)     | User wants to initialize mimoni.yaml configuration in a project     |
+| mimoni status | [cookbook/mimoni-status.md](cookbook/mimoni-status.md) | User wants to check the status of running or completed mimoni runs  |
+| mimoni list   | [cookbook/mimoni-list.md](cookbook/mimoni-list.md)     | User wants to see available blueprint workflows                     |
 
 **When a user invokes a `/library` command, read the matching cookbook file first, then execute the steps.**
+
+> **Note:** Utility recipes in the justfile (e.g., `default`, which runs `just --list`) are not `/library` commands and are excluded from the 1:1 command↔cookbook mapping requirement. Only recipes that invoke `/library <command>` need a corresponding SKILL.md entry.
 
 ## Source Format
 

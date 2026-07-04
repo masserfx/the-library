@@ -1,3 +1,10 @@
 .DS_Store
 .env
 *.tmp
+
+# Mimoni run state (local, not committed)
+.mimoni/
+
+# Tooling / stray
+.factory/
+mimoni.yaml
