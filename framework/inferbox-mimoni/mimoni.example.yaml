@@ -1,0 +1,45 @@
+# mimoni.example.yaml — Configuration template for mimoni agent orchestration.
+# Copy this file to mimoni.yaml and customize for your project.
+# All field names use snake_case and are referenced by blueprints.
+
+# Blueprint to use for orchestration runs.
+# Options: standard, bugfix, migration, test
+blueprint: standard
+
+# Validation commands that mimoni runs after each implementation step.
+# These are executed as shell commands during the deterministic validation nodes.
+validation:
+  lint: npm run lint                      # linter command (e.g., eslint, ruff, rubocop)
+  typecheck: npm run typecheck            # type-checker command (e.g., tsc --noEmit, mypy, pyright)
+  test: npm test                          # test-runner command (e.g., jest, pytest, go test)
+
+# Pull request configuration for the final PR that mimoni creates.
+pr:
+  branch_prefix: "mimoni/"               # prefix for all mimoni-created branches
+  max_retries: 2                         # max fix-loop iterations before giving up
+  draft: true                            # create PR as draft so humans review before merge
+  labels:                                # GitHub labels to apply to the PR
+    - mimoni
+  reviewers: []                          # GitHub usernames to request review from
+
+# Agent configuration controlling the LLM behavior during agent nodes.
+agent:
+  model: opus                            # model to use (e.g., opus, sonnet)
+  rule_files:                            # glob patterns for rule/instruction files to include as context
+    - CLAUDE.md
+    - AGENTS.md
+    - ".cursor/rules/*.md"
+
+# Context rules that control which project files the agent can see and work with.
+context:
+  include:                               # glob patterns for files to include in agent context
+    - "src/**/*"
+    - "lib/**/*"
+    - "app/**/*"
+    - "tests/**/*"
+  exclude:                               # glob patterns for files to exclude from agent context
+    - "node_modules/**"
+    - "dist/**"
+    - "build/**"
+    - ".git/**"
+    - "*.lock"

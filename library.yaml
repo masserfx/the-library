@@ -105,5 +105,20 @@ library:
       description: Pravidla pro inkrementalni praci
       source: https://github.com/masserfx/claude-skills/blob/main/session-discipline/SKILL.md
 
+    # === Framework skills (3) — inferbox orchestration, SaaS jádro ===
+    # Zdroje jsou lokalni cesty do the-library repa. Po push na GitHub lze prepnout na
+    # https://github.com/masserfx/the-library/blob/main/framework/<name>/SKILL.md pro cross-machine distribuci.
+    - name: inferbox-hooks
+      description: Bezpecnostni Claude Code hooks (rm -rf + .env blokace, audit log)
+      source: ~/.claude/skills/library/framework/inferbox-hooks/SKILL.md
+
+    - name: inferbox-mimoni
+      description: Self-contained mimoni runner task->draft PR (worktree izolace, fix-loop)
+      source: ~/.claude/skills/library/framework/inferbox-mimoni/SKILL.md
+
+    - name: inferbox-pi-team
+      description: Sablony Pi multi-team agentu pro novy tenant (domain sandbox, model tiering)
+      source: ~/.claude/skills/library/framework/inferbox-pi-team/SKILL.md
+
   agents: []
   prompts: []
